@@ -1,0 +1,6 @@
+<ion-item (click)="selectLayer($event)">
+    <ion-label *ngIf="!layer">
+      Select Filter
+    </ion-label>
+    <layer-preview *ngIf="layer" [preview-data]="layer"></layer-preview>
+</ion-item>

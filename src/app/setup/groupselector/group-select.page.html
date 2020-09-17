@@ -1,0 +1,10 @@
+
+<ion-content>
+    <ion-list>
+        <ng-container *ngFor="let group of ledService.leds">
+            <ion-item *ngIf="!group.pos" (click)="onSelect(group.id)">
+                {{ group.label }}
+            </ion-item>
+        </ng-container>
+    </ion-list>
+</ion-content>

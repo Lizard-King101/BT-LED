@@ -1,0 +1,12 @@
+:host {
+    // width: 75vw;
+
+    ion-list{
+        margin-bottom: 0px;
+    
+        ion-item{
+            --padding-start: 0px;
+            --inner-padding-end: 0px;
+        }
+    }
+}

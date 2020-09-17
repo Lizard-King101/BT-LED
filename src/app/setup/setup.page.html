@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/home"><ion-icon name="arrow-back"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>
+      Setup
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="ledService.onGenerateData()"><ion-icon name="code"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="card">
+    <div class="head">
+      <ion-segment expand="block" [(ngModel)]="tab" (ionChange)="onTab()">
+        <ion-segment-button value="grid">
+          <ion-label>Grid</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="leds">
+          <ion-label>LEDS</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+    <div *ngIf="tab == 'grid'" class="body grid">
+      <div class="row" *ngFor="let row of ledService.cells; let r = index;">
+        <div class="cell" *ngFor="let cell of row; let c = index;" [class.filled]="cell" (click)="assignGroup($event, c, r)">
+
+        </div>
+      </div>
+    </div>
+    <div *ngIf="tab == 'leds'" class="body list">
+      <ion-item>
+          <ion-label position="floating">Number of LED's</ion-label>
+          <ion-input type="number" [(ngModel)]="ledService.ledCount" (ionBlur)="accDelete && onReset()" (ionFocus)="!accDelete && onCountWarning()"></ion-input>
+      </ion-item>
+      <ion-button expand="block" (click)="onAddGroup()">Add Group</ion-button>
+      <ion-list>
+        <ion-item-sliding *ngFor="let group of ledService.leds">
+          <ion-item>
+            <ion-label>{{ group.label }}</ion-label>
+            
+            <ng-container *ngIf="group.hasOwnProperty('reverse')">
+                <ion-label class="end-label" slot="end">Reverse</ion-label>
+                <ion-toggle slot="end" [(ngModel)]="group.reverse"></ion-toggle>
+            </ng-container>
+            
+          </ion-item>
+      
+          <ion-item-options side="end">
+            <ion-item-option (click)="onEdit(group)">Edit</ion-item-option>
+            <ion-item-option color="danger" (click)="onDelete(group.id, group.label)">Delete</ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>

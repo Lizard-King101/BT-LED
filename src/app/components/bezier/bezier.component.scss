@@ -1,0 +1,49 @@
+:host {
+    display: block;
+    text-align: center;
+    padding-top: 15px;
+    svg {
+        top: 0;
+        left: 0;
+        width: 70%;
+        height: auto;
+
+        path {
+            fill: none;
+            stroke: #595656;
+            stroke-width: 3px;
+    
+            
+        }
+        line{
+            &.bezier-curve {
+                stroke-width: 2px;
+                stroke: #595656;
+                stroke-dasharray: 5, 5;
+            }
+
+            &.grid{
+                stroke-width: 1px;
+                stroke: #a3a3a3;
+            }
+        }
+          
+        circle.point {
+            fill: #DA5E5C;
+        }
+        
+        circle.point.selected, circle.point:hover {
+            fill: #D13337;
+        }
+        
+        circle.bezier-point {
+            fill:  #E8E1CA;
+        }
+        
+        circle.bezier-point.selected, circle.bezier-point:hover {
+            fill: #595656;
+        }
+    }
+}
+  
+  

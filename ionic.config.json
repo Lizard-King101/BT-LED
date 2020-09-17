@@ -1,5 +1,7 @@
 {
   "name": "BT-LED",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

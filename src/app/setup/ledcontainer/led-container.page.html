@@ -1,0 +1,85 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            Create Group
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+
+    <ion-list>
+            <ion-item>
+                    <ion-label position="floating">Label</ion-label>
+                    <ion-input type="text" [(ngModel)]="label"></ion-input>
+                </ion-item>
+            
+                <ion-item-group>
+                        <ion-item>
+                            <ion-segment expand="block" [(ngModel)]="type">
+                                <ion-segment-button value="group">
+                                    <ion-label>Group</ion-label>
+                                </ion-segment-button>
+                                <ion-segment-button value="list">
+                                    <ion-label>List</ion-label>
+                                </ion-segment-button>
+                            </ion-segment>
+                        </ion-item>
+                        <ion-item-divider>
+                            <ion-label>
+                                <p *ngIf="type == 'group'">LED's are handled together in one group</p>
+                                <p *ngIf="type == 'list'">LED's are handled linearly one by one</p>
+                            </ion-label>
+                        </ion-item-divider>
+                </ion-item-group>
+            
+                <ion-item *ngIf="type == 'list'">
+                    <ion-label>
+                        <h4>Reverse</h4>
+                        <p>Reverse direction of List</p>
+                    </ion-label>
+                    <ion-toggle slot="end" [(ngModel)]="reverse"></ion-toggle>
+                </ion-item>
+            
+                <ion-item>
+                    <ion-label position="floating">Mode</ion-label>   
+                    <ion-segment expand="block" [(ngModel)]="selectType">
+                        <ion-segment-button value="range">
+                            <ion-label>Range</ion-label>
+                        </ion-segment-button>
+                        <ion-segment-button value="select">
+                            <ion-label>Select</ion-label>
+                        </ion-segment-button>
+                    </ion-segment>
+                </ion-item>
+            
+                <ion-item *ngIf="selectType == 'range'">
+                    <ion-label>Range From</ion-label>
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col>
+                                <ion-input type="number" [(ngModel)]="ledl" placeholder="Start LED"></ion-input>
+                            </ion-col>
+                            <ion-col>
+                                <ion-input type="number" [(ngModel)]="ledh" placeholder="End LED"></ion-input>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="selectType == 'select'">
+        <ion-item *ngFor="let led of ledService.ledReserve; let i = index" (click)="onFillCell($event, i)">
+            <ion-label>LED: {{ i + 1 }}</ion-label>
+            <span class="toggle" [class.active]="led == id" [class.disabled]="led && led != id"></span>
+        </ion-item>
+    </ion-list>
+
+</ion-content>
+<ion-footer>
+    <ion-grid>
+        <ion-row>
+            <ion-col size-xs="6"><ion-button expand="block" (click)="onDismiss()">Cancel</ion-button></ion-col>
+            <ion-col size-xs="6"><ion-button expand="block" (click)="onSave()">{{ new ? 'Add' : 'Save' }}</ion-button></ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>

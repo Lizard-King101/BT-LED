@@ -1,0 +1,16 @@
+span.toggle{
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    border: 2px solid#cecece;
+    margin-right: 10px;
+
+    &.disabled{
+        border-color: #c55b40;
+        background-color: #ff8f73;
+    }
+    &.active{
+        border-color: #6db141;
+        background-color: #abff73;
+    }
+}

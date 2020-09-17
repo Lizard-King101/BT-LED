@@ -1,0 +1,15 @@
+<svg height="100%" width="100%" [attr.viewBox]="size.join(' ')" (touchmove)="onMovePoint($event)" (touchend)="onClearTarget()">
+    <line class="grid" x1="10" y1="110" x2="10" y2="10"></line>
+    <line class="grid" x1="10" y1="110" x2="110" y2="110"></line>
+    <rect ></rect>
+    <path [attr.d]="pointsString"></path>
+
+    <line class="bezier-curve" attr.x1="{{ [offset, points[0]] | pointString:0 }}" attr.y1="{{ [offset, points[0]] | pointString:1 }}" attr.x2="{{ [offset, points[1]] | pointString:0 }}" attr.y2="{{ [offset, points[1]] | pointString:1 }}"></line>
+    <line class="bezier-curve" attr.x1="{{ [offset, points[3]] | pointString:0 }}" attr.y1="{{ [offset, points[3]] | pointString:1 }}" attr.x2="{{ [offset, points[2]] | pointString:0 }}" attr.y2="{{ [offset, points[2]] | pointString:1 }}"></line>
+
+    <circle (touchstart)="onSetTarget(1)" attr.cx="{{ [offset, points[1]] | pointString:0 }}" attr.cy="{{ [offset, points[1]] | pointString:1 }}" r="2" class="bezier-point"></circle>
+    <circle (touchstart)="onSetTarget(2)" attr.cx="{{ [offset, points[2]] | pointString:0 }}" attr.cy="{{ [offset, points[2]] | pointString:1 }}" r="2" class="bezier-point"></circle>
+
+    <circle (touchstart)="onSetTarget(0)" attr.cx="{{ [offset, points[0]] | pointString:0 }}" attr.cy="{{ [offset, points[0]] | pointString:1 }}" r="3" class="point"></circle>
+    <circle (touchstart)="onSetTarget(3)" attr.cx="{{ [offset, points[3]] | pointString:0 }}" attr.cy="{{ [offset, points[3]] | pointString:1 }}" r="3" class="point"></circle>
+</svg>

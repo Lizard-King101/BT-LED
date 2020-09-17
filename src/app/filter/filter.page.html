@@ -1,0 +1,52 @@
+<ion-content padding>
+    <ion-input type="text" placeholder="Filter Name"></ion-input>
+
+    <ion-card *ngFor="let layer of layers; let i = index;">
+        <ion-card-content>
+            <filter-select [layer]="layer.layer" (onChange)="layer.layer = $event"></filter-select>
+            <ion-select [(ngModel)]="layer.filter">
+                <ion-select-option>
+                    Add
+                </ion-select-option>
+                <ion-select-option>
+                    Subtract
+                </ion-select-option>
+                <ion-select-option>
+                    Multiply
+                </ion-select-option>
+            </ion-select>
+        </ion-card-content>
+            <ion-row>
+                <ion-col>
+                    <ion-button expand="block" size="small">Delete</ion-button>
+                </ion-col>
+                <ion-col>
+                    <ion-button expand="block" size="small" (click)="editLayer(layer.layer, i)">Edit</ion-button>
+                </ion-col>
+            </ion-row>
+    </ion-card>
+
+    
+</ion-content>
+
+<ion-footer>
+    <ion-row>
+        <ion-col>
+            <ion-button expand="block" (click)="addLayer()">
+                Add Layer
+            </ion-button>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <ion-button expand="block">
+                Cancel
+            </ion-button>
+        </ion-col>
+        <ion-col>
+            <ion-button expand="block">
+                Save
+            </ion-button>
+        </ion-col>
+    </ion-row>
+</ion-footer>

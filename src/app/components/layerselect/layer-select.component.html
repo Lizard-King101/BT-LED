@@ -1,0 +1,6 @@
+
+<ion-list>
+    <ion-item *ngFor="let layer of layers" (click)="onSelect(layer)">
+        <layer-preview [preview-data]="layer"></layer-preview>
+    </ion-item>
+</ion-list>

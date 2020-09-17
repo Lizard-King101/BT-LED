@@ -1,0 +1,84 @@
+<ion-header>
+    <layer-preview [preview-data]="layer"></layer-preview>
+</ion-header>
+
+<ion-content>
+    <div class="gradient">
+        <div class="display" 
+        [ngStyle]="{'background' : gradient}"
+
+        (mousemove)="onMouseMove($event)" 
+        (mouseup)="onMouseUp()">
+            <div class="control">
+                <div class="color" 
+                *ngFor="let color of layer.color; let i = index;" 
+                [ngStyle]="{'left': (color[4] * 100) +'%'}" 
+                (mousedown)="onMouseDown($event, i)" (click)="onSelect(i)">
+                    <span class="color-block" [ngStyle]="{'background-color': 'rgb('+color[0]+','+color[1]+','+color[2]+')'}"></span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <ion-button (click)="onAddColor()">Add Color</ion-button>
+    <br>
+    <ng-container *ngIf="selected != null">
+        <ion-item>
+            <ion-label>Hue</ion-label>
+            <ion-range class="hue" [(ngModel)]="h" (ionChange)="onUpdateColor()" min="0" max="1" step="0.01"></ion-range>
+        </ion-item>
+        <ion-item>
+            <ion-label>Saturation</ion-label>
+            <ion-range class="saturation" [(ngModel)]="s" (ionChange)="onUpdateColor()" min="0" max="1" step="0.01"></ion-range>
+        </ion-item>
+        <ion-item>
+            <ion-label>Lightness</ion-label>
+            <ion-range class="light" [(ngModel)]="l" (ionChange)="onUpdateColor()" min="0" max="1" step="0.01"></ion-range>
+        </ion-item>
+        <ion-item>
+            <ion-label>Alpha</ion-label>
+            <ion-range [(ngModel)]="layer.color[selected][3]" min="0" max="1" step="0.01"></ion-range>
+        </ion-item>
+        <ion-item>
+            <ion-label>Position</ion-label>
+            <ion-range [(ngModel)]="layer.color[selected][4]" min="0" max="1" step="0.01"></ion-range>
+        </ion-item>
+    </ng-container>
+
+    <ion-item *ngIf="layer.attributes.size">
+        <ion-label>Size</ion-label>
+        <ion-range [(ngModel)]="layer.attributes.size" 
+        [min]="getAttributeSettings('size', 'min', layer.name)" 
+        [max]="getAttributeSettings('size', 'max', layer.name)" 
+        [step]="getAttributeSettings('size', 'step', layer.name)"></ion-range>
+    </ion-item>
+    <ion-item *ngIf="layer.attributes.speed">
+        <ion-label>Speed</ion-label>
+        <ion-range [(ngModel)]="layer.attributes.speed" 
+        [min]="getAttributeSettings('speed', 'min', layer.name)" 
+        [max]="getAttributeSettings('speed', 'max', layer.name)" 
+        [step]="getAttributeSettings('speed', 'step', layer.name)"></ion-range>
+    </ion-item>
+    <ion-item *ngIf="layer.attributes.return != null">
+        <ion-label>Return</ion-label>
+        <ion-toggle slot="end" [(ngModel)]="layer.attributes.return"></ion-toggle>
+    </ion-item>
+    <ion-item *ngIf="layer.attributes.life">
+        <ion-label>Life</ion-label>
+        <ion-range [(ngModel)]="layer.attributes.life" 
+        [min]="getAttributeSettings('life', 'min', layer.name)" 
+        [max]="getAttributeSettings('life', 'max', layer.name)" 
+        [step]="getAttributeSettings('life', 'step', layer.name)"></ion-range>
+    </ion-item>
+</ion-content>
+
+<ion-footer>
+    <ion-row>
+        <ion-col>
+            <ion-button expand="block" (click)="onClose()">Cancel</ion-button>
+        </ion-col>
+        <ion-col>
+            <ion-button expand="block" (click)="onSave()">Save</ion-button>
+        </ion-col>
+    </ion-row>
+</ion-footer>
